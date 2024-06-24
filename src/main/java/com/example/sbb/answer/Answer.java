@@ -1,28 +1,26 @@
-package com.example.sbb;
+package com.example.sbb.answer;
 
+import com.example.sbb.question.Question;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Question {
+public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(length = 200)
-    private String subject;
 
     @Column(columnDefinition = "TEXT")
     private String content;
 
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private List<Answer> answerList;
+    @ManyToOne   //답변(Many), 질문(One)
+    private Question question;
+
 }
